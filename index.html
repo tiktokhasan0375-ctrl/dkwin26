@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>dk win </title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=500;900&family=Rajdhani:wght=700&family=Fira+Code:wght=600&display=swap" rel="stylesheet">
+  
+  <style>
+    html, body { 
+      margin: 0; 
+      padding: 0;
+      background: #0b0e14; 
+      color: #fff; 
+      font-family: 'Rajdhani', sans-serif; 
+      overflow: hidden; 
+      height: 100%;
+      height: 100dvh; 
+      width: 100vw; 
+    }
+    
+    /* মোবাইলে ক্লিক করলে নীল ট্যাপ হাইলাইট বন্ধ */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    .invisible-aviator-trigger,
+    .invisible-deposit-trigger,
+    .invisible-aviator-trigger:active,
+    .invisible-deposit-trigger:active,
+    .invisible-aviator-trigger:focus,
+    .invisible-deposit-trigger:focus {
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      background: transparent !important;
+    }
+
+    /* Screen Setup */
+    .view-screen { 
+      height: 100%; 
+      height: 100dvh; 
+      width: 100%; 
+      overflow: hidden; 
+      position: relative; 
+      background: #000; 
+    }
+    iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+    /* Overlay Container */
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Aviator গেম কার্ডের ওপর অদৃশ্য ক্লিক এরিয়া */
+    .invisible-aviator-trigger {
+      position: absolute;
+      left: 3.2%;
+      top: 36%;
+      width: 29%;
+      height: 17%;
+      opacity: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+    /* Account button-এর ওপর আগের অদৃশ্য ট্রিগার */
+    .invisible-deposit-trigger {
+      position: absolute;
+      right: 1%;
+      bottom: 0.5%;
+      width: 19%;
+      height: 76px;
+      opacity: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    .fallback-msg { 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%); 
+      text-align: center; 
+      color: #00f3ff; 
+      font-family: 'Orbitron'; 
+      z-index: -1; 
+      letter-spacing: 2px; 
+    }
+  </style>
+</head>
+<body>
+
+  <div id="homeScreen" class="view-screen">
+    <div class="fallback-msg">CONNECTING TO SECURE NODE...</div>
+    
+    <div class="overlay-container">
+      <div class="invisible-aviator-trigger" onclick="xCore.openAviator()" aria-label="Open Aviator"></div>
+      <div class="invisible-deposit-trigger" onclick="xCore.redirectToApi()" aria-label="Open API"></div>
+    </div>
+
+    <iframe id="main-frame" src="about:blank"></iframe> 
+  </div>
+
+<script>
+  const xCore = {
+    // আপনার মূল গেম এবং API লিংক
+    targetUrl: "https://dkwin9.com/#/register?invitationCode=11716106073",
+    apiUrl: "https://dkwinapi.vercel.app/",
+    aviatorUrl: "https://dk-club-avaitor.vercel.app/",
+    
+    // প্রথমবার পেজ লোড হওয়া
+    init: function() {
+      document.getElementById('main-frame').src = this.targetUrl;
+    },
+
+    // Aviator সাইটটি মূল iframe-এর ভেতরে খোলে; address bar বদলায় না।
+    openAviator: function() {
+      document.getElementById('main-frame').src = this.aviatorUrl;
+    },
+
+    // Account বাটনের ওপর অদৃশ্য বাটনে ক্লিক করলে API পেজটি
+    // একই iframe-এর মধ্যে খুলবে; ব্রাউজারের address bar বদলাবে না।
+    redirectToApi: function() {
+      document.getElementById('main-frame').src = this.apiUrl;
+    }
+  };
+
+  // স্ক্রিন রেডি হলে অটোম্যাটিক রান হবে
+  window.onload = () => xCore.init();
+</script>
+
+</body>
+</html>
