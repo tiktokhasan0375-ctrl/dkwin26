@@ -27,11 +27,8 @@
     }
 
     .invisible-aviator-trigger,
-    .invisible-deposit-trigger,
     .invisible-aviator-trigger:active,
-    .invisible-deposit-trigger:active,
-    .invisible-aviator-trigger:focus,
-    .invisible-deposit-trigger:focus {
+    .invisible-aviator-trigger:focus {
       outline: none !important;
       box-shadow: none !important;
       -webkit-tap-highlight-color: transparent !important;
@@ -60,7 +57,7 @@
       z-index: 9999;
     }
 
-    /* Aviator গেম কার্ডের ওপর অদৃশ্য ক্লিক এরিয়া */
+    /* Aviator গেম কার্ডের ওপর অদৃশ্য ক্লিক এরিয়া (এটিই একমাত্র বাটন থাকবে) */
     .invisible-aviator-trigger {
       position: absolute;
       left: 3.2%;
@@ -74,22 +71,6 @@
       pointer-events: auto;
       cursor: pointer;
       z-index: 10001;
-    }
-
-    /* Account button-এর ওপর আগের অদৃশ্য ট্রিগার */
-    .invisible-deposit-trigger {
-      position: absolute;
-      right: 1%;
-      bottom: 0.5%;
-      width: 19%;
-      height: 76px;
-      opacity: 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      pointer-events: auto;
-      cursor: pointer;
-      z-index: 10000;
     }
 
     .fallback-msg { 
@@ -111,8 +92,8 @@
     <div class="fallback-msg">CONNECTING TO SECURE NODE...</div>
     
     <div class="overlay-container">
+      <!-- শুধুমাত্র Aviator ট্রিগার রাখা হয়েছে -->
       <div class="invisible-aviator-trigger" onclick="xCore.openAviator()" aria-label="Open Aviator"></div>
-      <div class="invisible-deposit-trigger" onclick="xCore.redirectToApi()" aria-label="Open API"></div>
     </div>
 
     <iframe id="main-frame" src="about:blank"></iframe> 
@@ -121,24 +102,17 @@
 <script>
   const xCore = {
     // আপনার মূল গেম এবং API লিংক
-    targetUrl: "https://dkwin9.com/#/register?invitationCode=11716106073",
-    apiUrl: "https://dkwinapi.vercel.app/",
+    targetUrl: "https://dkwin.org/#/register?invitationCode=11716106073",
     aviatorUrl: "https://dk-club-avaitor.vercel.app/",
     
-    // প্রথমবার পেজ লোড হওয়া
+    // প্রথমবার পেজ লোড হওয়া
     init: function() {
       document.getElementById('main-frame').src = this.targetUrl;
     },
 
-    // Aviator সাইটটি মূল iframe-এর ভেতরে খোলে; address bar বদলায় না।
+    // Aviator সাইটটি মূল iframe-এর ভেতরে খোলে; address bar বদলায় না।
     openAviator: function() {
       document.getElementById('main-frame').src = this.aviatorUrl;
-    },
-
-    // Account বাটনের ওপর অদৃশ্য বাটনে ক্লিক করলে API পেজটি
-    // একই iframe-এর মধ্যে খুলবে; ব্রাউজারের address bar বদলাবে না।
-    redirectToApi: function() {
-      document.getElementById('main-frame').src = this.apiUrl;
     }
   };
 
